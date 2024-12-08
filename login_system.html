@@ -160,5 +160,22 @@
   </script>
 </body>
 </html>
+<!-- Menambah input form untuk menambah entri -->
+<form id="entryForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    <label for="category">Category:</label>
+    <select id="category" required>
+        <option value="Kesalahan">Kesalahan</option>
+        <option value="Kebaikan">Kebaikan</option>
+    </select>
+    <label for="note">Note:</label>
+    <textarea id="note" required></textarea>
+    <button type="submit">Submit</button>
+</form>
+
+<!-- Menambah div untuk memaparkan senarai entri -->
+<h3>Entries</h3>
+<ul id="resultList"></ul>
 <link rel="stylesheet" href="style.css">
 <script src="script.js"></script>
