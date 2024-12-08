@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Category System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+    .container {
+      width: 300px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .message {
+      text-align: center;
+      color: red;
+    }
+    .hidden {
+      display: none;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e9ecef;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="loginContainer">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <!-- Username -->
+      <label for="username">Username:</label>
+      <input type="text" id="username" placeholder="Enter your username" required>
+
+      <!-- Password -->
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" required>
+
+      <!-- Login Button -->
+      <button type="submit">Login</button>
+    </form>
+    <div class="message" id="loginMessage"></div>
+  </div>
+
+  <div class="container hidden" id="categoryContainer">
+    <h2>Choose Category</h2>
+    <form id="entryForm">
+      <!-- Nama -->
+      <label for="name">Nama:</label>
+      <input type="text" id="name" placeholder="Masukkan nama" required>
+
+      <!-- Pilihan -->
+      <label for="category">Pilih kategori:</label>
+      <select id="category" required>
+        <option value="">-- Pilih --</option>
+        <option value="kesalahan">Kesalahan</option>
+        <option value="kebaikan">Kebaikan</option>
+      </select>
+
+      <!-- Catatan -->
+      <label for="note">Catatan:</label>
+      <input type="text" id="note" placeholder="Masukkan catatan" required>
+
+      <!-- Submit Button -->
+      <button type="submit">Simpan</button>
+    </form>
+
+    <div class="result" id="resultContainer">
+      <h3>Senarai</h3>
+      <ul id="resultList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const correctUsername = "admin@xtennynix2009";
+    const correctPassword = "admin@xtennynix2009123";
+
+    const loginForm = document.getElementById('loginForm');
+    const loginContainer = document.getElementById('loginContainer');
+    const categoryContainer = document.getElementById('categoryContainer');
+    const loginMessage = document.getElementById('loginMessage');
+
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === correctUsername && password === correctPassword) {
+        loginContainer.classList.add('hidden');
+        categoryContainer.classList.remove('hidden');
+      } else {
+        loginMessage.textContent = "Invalid username or password!";
+      }
+    });
+
+    const entries = [];
+    const entryForm = document.getElementById('entryForm');
+    const resultList = document.getElementById('resultList');
+
+    entryForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const category = document.getElementById('category').value;
+      const note = document.getElementById('note').value;
+
+      entries.push({ name, category, note });
+
+      updateResultList();
+      entryForm.reset();
+    });
+
+    function updateResultList() {
+      resultList.innerHTML = '';
+      entries.forEach((entry, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${index + 1}. [${entry.category}] ${entry.name}: ${entry.note}`;
+        resultList.appendChild(listItem);
+      });
+    }
+  </script>
+</body>
+</html>
