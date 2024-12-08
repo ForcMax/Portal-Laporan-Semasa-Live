@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,6 +117,7 @@
     const categoryContainer = document.getElementById('categoryContainer');
     const loginMessage = document.getElementById('loginMessage');
 
+    // Simpan dan semak login
     loginForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -132,23 +132,12 @@
       }
     });
 
-    const entries = [];
+    // Ambil data entries yang ada dalam LocalStorage, atau buat array kosong jika tiada
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
     const entryForm = document.getElementById('entryForm');
     const resultList = document.getElementById('resultList');
 
-    entryForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const category = document.getElementById('category').value;
-      const note = document.getElementById('note').value;
-
-      entries.push({ name, category, note });
-
-      updateResultList();
-      entryForm.reset();
-    });
-
+    // Fungsi untuk mengemaskini senarai dari LocalStorage
     function updateResultList() {
       resultList.innerHTML = '';
       entries.forEach((entry, index) => {
@@ -157,25 +146,32 @@
         resultList.appendChild(listItem);
       });
     }
+
+    // Mendengar event submit borang entri
+    entryForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const category = document.getElementById('category').value;
+      const note = document.getElementById('note').value;
+
+      // Tambah entri baru ke dalam array
+      entries.push({ name, category, note });
+
+      // Simpan data entri dalam LocalStorage
+      localStorage.setItem('entries', JSON.stringify(entries));
+
+      // Kemaskini senarai pada paparan
+      updateResultList();
+
+      // Reset borang
+      entryForm.reset();
+    });
+
+    // Memaparkan senarai entri yang telah disimpan semasa halaman dimuat
+    updateResultList();
   </script>
 </body>
 </html>
-<!-- Menambah input form untuk menambah entri -->
-<form id="entryForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" required>
-    <label for="category">Category:</label>
-    <select id="category" required>
-        <option value="Kesalahan">Kesalahan</option>
-        <option value="Kebaikan">Kebaikan</option>
-    </select>
-    <label for="note">Note:</label>
-    <textarea id="note" required></textarea>
-    <button type="submit">Submit</button>
-</form>
-
-<!-- Menambah div untuk memaparkan senarai entri -->
-<h3>Entries</h3>
-<ul id="resultList"></ul>
 <link rel="stylesheet" href="style.css">
 <script src="script.js"></script>
