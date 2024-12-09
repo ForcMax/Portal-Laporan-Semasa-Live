@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Category System</title>
+  <title>Laporan</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -67,12 +67,19 @@
       <select id="category" required>
         <option value="">-- Pilih --</option>
         <option value="kesalahan">Kesalahan</option>
-        <option value="kebaikan">Kebaikan</option>
       </select>
 
       <!-- Catatan -->
       <label for="note">Catatan:</label>
       <input type="text" id="note" placeholder="Masukkan catatan" required>
+
+      <!-- Pilihan Peranan -->
+      <label for="role">Pilih peranan:</label>
+      <select id="role" required>
+        <option value="">-- Pilih --</option>
+        <option value="moderator">Moderator</option>
+        <option value="viewers">Viewers</option>
+      </select>
 
       <!-- Submit Button -->
       <button type="submit">Simpan</button>
@@ -95,7 +102,7 @@
       resultList.innerHTML = '';
       entries.forEach((entry, index) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${index + 1}. [${entry.category}] ${entry.name}: ${entry.note}`;
+        listItem.textContent = `${index + 1}. [${entry.category}] ${entry.name} (${entry.role}): ${entry.note}`;
         resultList.appendChild(listItem);
       });
     }
@@ -107,9 +114,10 @@
       const name = document.getElementById('name').value;
       const category = document.getElementById('category').value;
       const note = document.getElementById('note').value;
+      const role = document.getElementById('role').value;
 
       // Tambah entri baru ke dalam array
-      entries.push({ name, category, note });
+      entries.push({ name, category, note, role });
 
       // Simpan data entri dalam LocalStorage
       localStorage.setItem('entries', JSON.stringify(entries));
@@ -126,5 +134,3 @@
   </script>
 </body>
 </html>
-<link rel="stylesheet" href="style.css">
-<script src="script.js"></script>
