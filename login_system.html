@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report</title>
+  <title>Category System</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -46,13 +46,6 @@
     button:hover {
       background-color: #0056b3;
     }
-    .message {
-      text-align: center;
-      color: red;
-    }
-    .hidden {
-      display: none;
-    }
     .result {
       margin-top: 20px;
       padding: 10px;
@@ -62,25 +55,8 @@
   </style>
 </head>
 <body>
-  <div class="container" id="loginContainer">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <!-- Username -->
-      <label for="username">Username:</label>
-      <input type="text" id="username" placeholder="Enter your username" required>
-
-      <!-- Password -->
-      <label for="password">Password:</label>
-      <input type="password" id="password" placeholder="Enter your password" required>
-
-      <!-- Login Button -->
-      <button type="submit">Login</button>
-    </form>
-    <div class="message" id="loginMessage"></div>
-  </div>
-
-  <div class="container hidden" id="categoryContainer">
-    <h2>Choose Category</h2>
+  <div class="container">
+    <h2>Catatan Kategori</h2>
     <form id="entryForm">
       <!-- Nama -->
       <label for="name">Nama:</label>
@@ -109,29 +85,6 @@
   </div>
 
   <script>
-    const correctUsername = "admin@xtennynix2009";
-    const correctPassword = "admin@xtennynix2009123";
-
-    const loginForm = document.getElementById('loginForm');
-    const loginContainer = document.getElementById('loginContainer');
-    const categoryContainer = document.getElementById('categoryContainer');
-    const loginMessage = document.getElementById('loginMessage');
-
-    // Simpan dan semak login
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      if (username === correctUsername && password === correctPassword) {
-        loginContainer.classList.add('hidden');
-        categoryContainer.classList.remove('hidden');
-      } else {
-        loginMessage.textContent = "Invalid username or password!";
-      }
-    });
-
     // Ambil data entries yang ada dalam LocalStorage, atau buat array kosong jika tiada
     let entries = JSON.parse(localStorage.getItem('entries')) || [];
     const entryForm = document.getElementById('entryForm');
@@ -175,4 +128,3 @@
 </html>
 <link rel="stylesheet" href="style.css">
 <script src="script.js"></script>
-
